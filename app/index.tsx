@@ -10,23 +10,23 @@ export default function App() {
       </Text>
 
       <Link
-        href="/onboarding"
-        className="mt-6 rounded-xl bg-primary text-white px-8 py-4 "
-      >
-        Go to onBoarding
-      </Link>
-
-      <Link
-        href="/(Auth)/sign-in"
+        href="/(auth)/sign-in"
         className="mt-6 rounded-xl bg-primary text-white px-8 py-4 "
       >
         Go to Login
       </Link>
       <Link
-        href="/(Auth)/sign-up"
+        href="/(auth)/sign-up"
         className="mt-6 rounded-xl bg-primary text-white px-8 py-4 "
       >
         Go to signup
+      </Link>
+
+      <Link
+        href="/(tabs)"
+        className="mt-6 rounded-xl bg-primary text-white px-8 py-4 "
+      >
+        dash
       </Link>
     </View>
   );
