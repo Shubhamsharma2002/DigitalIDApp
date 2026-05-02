@@ -1,19 +1,30 @@
 import image from "@/constants/image";
-import { useRouter } from "expo-router";
+import { useAuth } from "@clerk/expo";
+import { Redirect, useRouter } from "expo-router";
 import { styled } from "nativewind";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 import "../global.css";
 const SafeAreaView = styled(RNSafeAreaView);
+
 export default function App() {
   const router = useRouter();
+  const { isSignedIn, isLoaded } = useAuth();
+
+  if (!isLoaded) return null;
+
+  if (isSignedIn) {
+    return <Redirect href="/(tabs)" />;
+  }
+
   const handleGetStarted = () => {
-    router.replace("/(tabs)");
+    router.push("/(auth)/sign-in");
   };
+
   return (
-    <SafeAreaView className="flex-1 ">
+    <SafeAreaView className="flex-1">
       <View className="flex-3 items-center justify-center rounded">
-        <Image source={image.Logo} className="w-90 h-96 " resizeMode="cover" />
+        <Image source={image.Logo} className="w-90 h-96" resizeMode="cover" />
       </View>
 
       <View className="flex-1 items-center justify-center px-8 mb-5">
@@ -22,7 +33,7 @@ export default function App() {
           activeOpacity={0.8}
           className="w-full bg-blue-500 py-4 rounded-full items-center"
         >
-          <Text className="text-white font-sans-bold text-xl">Get Started</Text>
+          <Text className="text-white font-bold text-xl">Get Started</Text>
         </TouchableOpacity>
       </View>
 
