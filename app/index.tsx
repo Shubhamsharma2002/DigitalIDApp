@@ -8,7 +8,7 @@ const SafeAreaView = styled(RNSafeAreaView);
 export default function App() {
   const router = useRouter();
   const handleGetStarted = () => {
-    router.replace("/(auth)/sign-in");
+    router.replace("/(tabs)");
   };
   return (
     <SafeAreaView className="flex-1 ">

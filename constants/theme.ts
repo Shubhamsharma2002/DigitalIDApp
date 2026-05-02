@@ -1,15 +1,15 @@
 export const colors = {
-  background: "#FFFFFF",
-  foreground: "#081126",
-  card: "#FFFFFF",
+  background: "#fff9e3", // Tumhare CSS wala light cream background
+  foreground: "#205ce8", // Primary blue for text
+  card: "#fff8e7", // Slightly different for cards
   muted: "#f6eecf",
   mutedForeground: "rgba(0, 0, 0, 0.6)",
-  primary: "#205CE8",
-  accent: "#ea7a53",
+  primary: "#205ce8", // Digital ID ka signature blue
+  accent: "#ea7a53", // Orange-ish accent
   border: "rgba(0, 0, 0, 0.1)",
   success: "#16a34a",
   destructive: "#dc2626",
-  subscription: "#8fd1bd",
+  subscription: "#8fd1bd", // Greenish tint for plans
 } as const;
 
 export const spacing = {
@@ -24,7 +24,6 @@ export const spacing = {
   8: 32,
   9: 36,
   10: 40,
-  11: 44,
   12: 48,
   14: 56,
   16: 64,
@@ -32,15 +31,17 @@ export const spacing = {
   20: 80,
   24: 96,
   30: 120,
+  40: 160,
+  50: 200, // Balance card ke height ke liye (min-h-50)
 } as const;
 
 export const components = {
   tabBar: {
-    height: spacing[18],
-    horizontalInset: spacing[5],
-    radius: spacing[8],
-    iconFrame: spacing[12],
-    itemPaddingVertical: spacing[2],
+    height: 60, // height: spacing[18]
+    horizontalInset: 25, // spacing[5] - Side se gap ke liye
+    radius: 45, // spacing[8] - Rounded corners
+    iconFrame: 40, // spacing[12] - Icon ka wrapper size
+    itemPaddingVertical: 10, // spacing[2]
   },
 } as const;
 
