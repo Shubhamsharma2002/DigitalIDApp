@@ -1,33 +1,41 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import image from "@/constants/image";
+import { useRouter } from "expo-router";
+import { styled } from "nativewind";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 import "../global.css";
-
+const SafeAreaView = styled(RNSafeAreaView);
 export default function App() {
+  const router = useRouter();
+  const handleGetStarted = () => {
+    router.replace("/(auth)/sign-in");
+  };
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text className="text-xl font-bold text-blue-500">
-        Welcome to Nativewind!
-      </Text>
+    <SafeAreaView className="flex-1 ">
+      <View className="flex-3 items-center justify-center rounded">
+        <Image source={image.Logo} className="w-90 h-96 " resizeMode="cover" />
+      </View>
 
-      <Link
-        href="/(auth)/sign-in"
-        className="mt-6 rounded-xl bg-primary text-white px-8 py-4 "
-      >
-        Go to Login
-      </Link>
-      <Link
-        href="/(auth)/sign-up"
-        className="mt-6 rounded-xl bg-primary text-white px-8 py-4 "
-      >
-        Go to signup
-      </Link>
+      <View className="flex-1 items-center justify-center px-8 mb-5">
+        <TouchableOpacity
+          onPress={handleGetStarted}
+          activeOpacity={0.8}
+          className="w-full bg-blue-500 py-4 rounded-full items-center"
+        >
+          <Text className="text-white font-sans-bold text-xl">Get Started</Text>
+        </TouchableOpacity>
+      </View>
 
-      <Link
-        href="/(tabs)"
-        className="mt-6 rounded-xl bg-primary text-white px-8 py-4 "
-      >
-        dash
-      </Link>
-    </View>
+      <View className="flex-row items-center justify-center gap-10 pb-10">
+        {[image.MadeInIndia, image.SkillIndia].map((img, index) => (
+          <View
+            key={index}
+            className="w-20 h-20 rounded-full border border-gray-200 bg-white items-center justify-center overflow-hidden"
+          >
+            <Image source={img} className="w-14 h-14" resizeMode="contain" />
+          </View>
+        ))}
+      </View>
+    </SafeAreaView>
   );
 }

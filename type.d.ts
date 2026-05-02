@@ -1,6 +1,7 @@
 import type { ImageSourcePropType } from "react-native";
 
 declare global {
+  // Navigation Tabs ke liye (Home, Wallet, Scanner, Settings)
   interface AppTab {
     name: string;
     title: string;
@@ -12,45 +13,43 @@ declare global {
     icon: ImageSourcePropType;
   }
 
-  interface Subscription {
+  // --- Digital ID Specific Interfaces ---
+
+  // Main Identity Card ya Document ke liye
+  interface DigitalDocument {
     id: string;
+    type: "Aadhaar" | "PAN" | "Driving_License" | "Voter_ID" | "Other"; // Document category
     icon: ImageSourcePropType;
-    name: string;
-    plan?: string;
-    category?: string;
-    paymentMethod?: string;
-    status?: string;
-    startDate?: string;
-    price: number;
-    currency?: string;
-    billing: string;
-    renewalDate?: string;
-    color?: string;
+    docName: string; // e.g., "Shubham's Aadhaar"
+    docNumber: string; // Masked number like XXXX-XXXX-1234
+    issuedBy: string; // e.g., "UIDAI"
+    expiryDate?: string;
+    verificationStatus: "verified" | "pending" | "expired";
+    color?: string; // Card ka background color/gradient
+    data?: any; // Extra fields jo QR scan se aayein
   }
 
-  interface SubscriptionCardProps extends Omit<Subscription, "id"> {
-    expanded: boolean;
+  // UI Card Component ke props
+  interface DocumentCardProps extends Omit<DigitalDocument, "id"> {
+    isExpanded: boolean;
     onPress: () => void;
-    onCancelPress?: () => void;
-    isCancelling?: boolean;
+    onShare?: () => void;
+    onDelete?: () => void;
   }
 
-  interface UpcomingSubscription {
+  // Verification Activity (Hali filhal mein scan kiye gaye IDs)
+  interface RecentActivity {
     id: string;
-    icon: ImageSourcePropType;
-    name: string;
-    price: number;
-    currency?: string;
-    daysLeft: number;
+    action: "scanned" | "shared" | "verified";
+    docType: string;
+    timestamp: string;
+    location?: string;
   }
-
-  interface UpcomingSubscriptionCardProps extends Omit<
-    UpcomingSubscription,
-    "id"
-  > {}
 
   interface ListHeadingProps {
     title: string;
+    showSeeAll?: boolean;
+    onSeeAllPress?: () => void;
   }
 }
 

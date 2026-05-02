@@ -1,6 +1,7 @@
 import activity from "@/assets/icons/activity.png";
 import add from "@/assets/icons/add.png";
 import adobe from "@/assets/icons/adobe.png";
+import Applogo from "@/assets/icons/applogo.png";
 import back from "@/assets/icons/back.png";
 import canva from "@/assets/icons/canva.png";
 import claude from "@/assets/icons/claude.png";
@@ -37,6 +38,7 @@ export const icons = {
   claude,
   canva,
   logoGif,
+  Applogo,
 } as const;
 
 export type IconKey = keyof typeof icons;
