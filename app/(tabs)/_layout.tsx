@@ -1,23 +1,46 @@
 import { tabs } from "@/constants/data";
-import clsx from "clsx";
-import { Tabs } from "expo-router";
-import React from "react";
-
 import { colors, components } from "@/constants/theme";
+import { useAuth } from "@clerk/expo";
+import clsx from "clsx";
+import { Redirect, Tabs } from "expo-router";
+import React from "react";
 import { Image, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-const tabBar = components.tabBar;
-const TabIcon = ({ focused, icon }: TabIconProps) => {
+
+const { tabBar } = components;
+
+// Pure Inline Tailwind/NativeWind TabIcon
+const TabIcon = ({ focused, icon }: { focused: boolean; icon: any }) => {
   return (
-    <View className="tabs-icon">
-      <View className={clsx("tabs-pill", focused && "tabs-active")}>
-        <Image source={icon} resizeMode="contain" className="tabs-glyph" />
+    <View className="flex-1 items-center justify-center w-full">
+      <View
+        className={clsx(
+          "w-12 h-12 items-center justify-center rounded-full",
+          focused ? "bg-white shadow-md" : "bg-transparent",
+        )}
+      >
+        <Image
+          source={icon}
+          resizeMode="contain"
+          className="w-6 h-6"
+          style={{ tintColor: focused ? colors.primary : "#ffffff" }}
+        />
       </View>
     </View>
   );
 };
-const Tabslayout = () => {
+
+const TabsLayout = () => {
   const insets = useSafeAreaInsets();
+  const { isSignedIn, isLoaded } = useAuth();
+
+  if (!isLoaded) return null;
+
+  // Protect tabs
+  if (!isSignedIn) {
+    return <Redirect href="/(auth)/sign-in" />;
+  }
+
   return (
     <Tabs
       screenOptions={{
@@ -31,15 +54,14 @@ const Tabslayout = () => {
           borderRadius: tabBar.radius,
           backgroundColor: colors.primary,
           borderTopWidth: 0,
-          elevation: 0,
+          elevation: 5,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.1,
+          shadowRadius: 10,
         },
         tabBarItemStyle: {
-          paddingVertical: tabBar.height / 2 - tabBar.iconFrame / 1.6,
-        },
-        tabBarIconStyle: {
-          width: tabBar.iconFrame,
-          height: tabBar.iconFrame,
-          alignItems: "center",
+          paddingVertical: (tabBar.height - 48) / 2,
         },
       }}
     >
@@ -59,4 +81,4 @@ const Tabslayout = () => {
   );
 };
 
-export default Tabslayout;
+export default TabsLayout;
